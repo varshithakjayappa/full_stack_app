@@ -1,5 +1,5 @@
 FROM node:23.9.0-slim
-LABEL maintainer = "varshitha"
+LABEL maintainer="varshitha"
 RUN useradd adminui
 WORKDIR /app
 COPY . .
