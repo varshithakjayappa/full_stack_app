@@ -1,4 +1,4 @@
-FROM node:23.9.0-silm
+FROM node:23.9.0-slim
 LABEL maintainer = "varshitha"
 RUN useradd adminui
 WORKDIR /app
