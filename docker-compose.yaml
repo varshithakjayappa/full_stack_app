@@ -13,7 +13,7 @@ services:
       - mongo-data:/data/db
 
  user-api:
-     build: ./user-api
+     build: ./call-booking-application/user-api
      ports:
        - 1004:1004
      environment:
@@ -22,7 +22,7 @@ services:
       - mongo_db
 
  admin-api:
-    build: ./admin-api
+    build: ./call-booking-application/admin-api
     ports:
       - 1005:1005
     environment:
@@ -31,14 +31,14 @@ services:
       - mongo_db
 
  user-ui:
-    build: ./user-ui
+    build: ./call-booking-application/user-ui
     ports:
       - 3000:3000
     depends_on:
       - user-api
       
  admin-ui:
-    build: ./admin-ui
+    build: ./call-booking-application/admin-ui
     ports:
       - 30001:30001
     depends_on:
