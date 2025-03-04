@@ -42,7 +42,7 @@ services:
     ports:
       - 30001:30001
     depends_on:
-      - admin-ui
+      - admin-api
 
 volumes:
     mongo-data:
