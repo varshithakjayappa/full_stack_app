@@ -28,7 +28,7 @@ services:
  admin-api:
     build: ./call-booking-application/admin-api
     ports:
-      - 1005:1004
+      - 1005:1005
     environment:
       - MONGO_URL=mongodb://mongoadmin:secret@mongodb:27017/admin?retryWrites=true
     depends_on:
