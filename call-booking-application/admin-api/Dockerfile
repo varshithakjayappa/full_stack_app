@@ -6,5 +6,6 @@ RUN chown adminapi /app
 COPY . .
 RUN npm install
 USER adminapi
-EXPOSE 3000
+ENV MONGO_URL=""
+EXPOSE 1005
 CMD [ "npm" , "start" ]

@@ -6,5 +6,5 @@ RUN chown adminui /app
 COPY . .
 RUN npm install
 USER adminui
-EXPOSE 3000
+EXPOSE 30001
 CMD [ "npm" , "start" ]
