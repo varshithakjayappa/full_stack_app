@@ -52,7 +52,7 @@ services:
  admin-ui:
     build: ./call-booking-application/admin-ui
     ports:
-      - 30001:30001
+      - 30001:3000
     depends_on:
       - admin-api
     user: "adminui"
