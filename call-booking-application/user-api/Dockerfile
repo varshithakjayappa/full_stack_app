@@ -2,7 +2,7 @@ FROM node:23.9.0-slim
 LABEL maintainer="varshitha"
 RUN useradd -m userapi
 WORKDIR /app
-COPY chown userapi /app
+RUN chown userapi /app
 COPY . .
 RUN npm install
 USER userapi
