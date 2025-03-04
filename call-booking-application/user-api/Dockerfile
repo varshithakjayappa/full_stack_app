@@ -2,6 +2,7 @@ FROM node:23.9.0-slim
 LABEL maintainer="varshitha"
 RUN useradd userapi
 WORKDIR /app
+RUN chown userapi /app
 COPY . .
 RUN npm install
 EXPOSE 1004
