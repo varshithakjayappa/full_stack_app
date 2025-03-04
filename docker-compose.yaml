@@ -8,7 +8,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=mongoadmin
       - MONGO_INITDB_ROOT_PASSWORD=secret
-      - MONGO_INITDB_DATABASE=mongo_db
+      - MONGO_INITDB_DATABASE=my_db
     volumes:
       - mongo-data:/data/db
 
@@ -17,7 +17,7 @@ services:
      ports:
        - 1004:1004
      environment:
-      - MONGO_URL=mongodb://mongoadmin:secret@mongo_db:27017/?retryWrites=true&w=majority
+      - MONGO_URL=mongodb://mongoadmin:secret@my_db:27017/?retryWrites=true&w=majority
      depends_on:
       - mongo_db
 
@@ -26,7 +26,7 @@ services:
     ports:
       - 1005:1005
     environment:
-      - MONGO_URL=${MONGO_URL}
+      - MONGO_URL=mongodb://mongoadmin:secret@my_db:27017/?retryWrites=true&w=majority
     depends_on:
       - mongo_db
 
