@@ -2,10 +2,10 @@ FROM node:23.9.0-slim
 LABEL maintainer="varshitha"
 RUN useradd -m userapi
 WORKDIR /app
-COPY --chown=userapi:userapi . .  
-RUN chmod -R 777 /app  
+COPY chown userapi /app/
+COPY . .
+RUN npm install
 USER userapi
 ENV MONGO_URL=""
-RUN npm install
-EXPOSE 3000
+EXPOSE 1004
 CMD [ "npm" , "start" ]
