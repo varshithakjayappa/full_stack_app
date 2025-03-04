@@ -1,0 +1,52 @@
+version: '1.1'
+
+services:
+
+ mongo_db:
+    image: mongo
+    ports:
+      - 27017:27017
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+    volumes:
+      - mongo-data:/data/db
+
+ user-api:
+     build: ./user-api
+     ports:
+       - 1004:1004
+     environment:
+      - MONGO_URL=${MONGO_URL}
+     depends_on:
+      - mongo_db
+
+ admin-api:
+    build: ./admin-api
+    ports:
+      - 1005:1005
+    environment:
+      - MONGO_URL=${MONGO_URL}
+    depends_on:
+      - mongo_db
+
+ user-ui:
+    build: ./user-ui
+    ports:
+      - 3000:3000
+    depends_on:
+      - user-api
+      
+ admin-ui:
+    build: ./admin-ui
+    ports:
+      - 30001:30001
+    depends_on:
+      - admin-ui
+
+volumes:
+    mongo-data:
+
+      
