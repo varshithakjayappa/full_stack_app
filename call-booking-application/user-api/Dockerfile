@@ -1,12 +1,13 @@
 FROM node:23.9.0-slim
 LABEL maintainer="varshitha"
-RUN useradd userapi
+RUN useradd -m -s /bin/bash userapi
 WORKDIR /app
-RUN chown userapi /app
-COPY . .
-RUN npm install
-EXPOSE 1004
+RUN chown -R userapi:userapi /app
+COPY package*.json ./
 USER userapi
 ENV MONGO_URL=""
-ENV ADMIN_EMAIL=""
+RUN mkdir -p /app/node_modules/.cache && chmod -R 777 /app/node_modules
+RUN npm install
+COPY --chown=userapi:userapi . .
+EXPOSE 3000
 CMD [ "npm" , "start" ]
