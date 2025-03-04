@@ -1,13 +1,11 @@
 FROM node:23.9.0-slim
 LABEL maintainer="varshitha"
-RUN useradd -m -s /bin/bash userui
+RUN useradd -m userui
 WORKDIR /app
-RUN chown -R userui:userui /app
-COPY package*.json ./
+COPY --chown=userui:userui . .  
+RUN chmod -R 777 /app  
 USER userui
-RUN mkdir -p /app/node_modules/.cache && chmod -R 777 /app/node_modules
 RUN npm install
-COPY --chown=userui:userui . .
 EXPOSE 3000
 CMD [ "npm" , "start" ]
 

@@ -11,6 +11,8 @@ services:
       - MONGO_INITDB_DATABASE=my_db
     volumes:
       - mongo-data:/data/db
+      
+    
 
  user-api:
      build: ./call-booking-application/user-api
