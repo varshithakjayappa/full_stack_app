@@ -1,6 +1,6 @@
 services:
 
- mongo_db:
+ mongodb:
     image: mongo
     ports:
       - 27017:27017
@@ -8,7 +8,6 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=mongoadmin
       - MONGO_INITDB_ROOT_PASSWORD=secret
-      - MONGO_INITDB_DATABASE=my_db
     volumes:
       - mongo-data:/data/db
       
@@ -19,9 +18,9 @@ services:
      ports:
        - 1004:1004
      environment:
-      - MONGO_URL=mongodb://mongoadmin:secret@my_db:27017/?retryWrites=true&w=majority
+      - MONGO_URL=mongodb://mongoadmin:secret@mongodb:27017/?retryWrites=true&w=majority
      depends_on:
-      - mongo_db
+      - mongodb
 
  admin-api:
     build: ./call-booking-application/admin-api
@@ -30,7 +29,7 @@ services:
     environment:
       - MONGO_URL=mongodb://mongoadmin:secret@my_db:27017/?retryWrites=true&w=majority
     depends_on:
-      - mongo_db
+      - mongodb
 
  user-ui:
     build: ./call-booking-application/user-ui
