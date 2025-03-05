@@ -20,8 +20,8 @@ services:
      ports:
        - 1004:1004
      environment:
-      - MONGO_URL="mongodb://mongoadmin:secret@mongodb:27017/admin?retryWrites=true"
-      - ADMIN_EMAIL="varshithakadur@gmail.com" 
+      - MONGO_URL=mongodb://mongoadmin:secret@mongodb:27017/admin?retryWrites=true
+      - ADMIN_EMAIL=varshithakadur@gmail.com
      depends_on:
       - mongodb
      user: "userapi"
