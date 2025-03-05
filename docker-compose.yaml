@@ -1,3 +1,4 @@
+version: '2'
 services:
 
  mongodb:
@@ -8,6 +9,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=mongoadmin
       - MONGO_INITDB_ROOT_PASSWORD=secret
+      - MONGO_INITDB_DATABASE=my_db
     volumes:
       - mongo-data:/data/db
     networks:
@@ -18,7 +20,8 @@ services:
      ports:
        - 1004:1004
      environment:
-      - MONGO_URL=mongodb://mongoadmin:secret@mongodb:27017/admin?retryWrites=true
+      - MONGO_URL="mongodb://mongoadmin:secret@mongodb:27017/admin?retryWrites=true"
+      - ADMIN_EMAIL="varshithakadur@gmail.com" 
      depends_on:
       - mongodb
      user: "userapi"
@@ -28,7 +31,7 @@ services:
  admin-api:
     build: ./call-booking-application/admin-api
     ports:
-      - 1005:1005
+      - 1005:1004
     environment:
       - MONGO_URL=mongodb://mongoadmin:secret@mongodb:27017/admin?retryWrites=true
     depends_on:
