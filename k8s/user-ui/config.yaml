@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-ui-config
+  labels: 
+    app: user-ui
+  namespace: user  
+data:
+  .env: | 
+      REACT_APP_API_URL=http://user-api:3000
+      

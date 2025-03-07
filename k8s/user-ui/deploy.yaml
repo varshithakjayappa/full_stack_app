@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-ui
+  labels: 
+    app: user-ui
+  namespace: user  
+spec:
+  selector:
+    matchLabels:
+      app: user-ui
+      role: user
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: user-ui
+        role: user
+    spec:
+      volumes:
+      - name : user-ui-v1
+        configMap: 
+          name: user-ui-config
+      containers:
+      - name: user-ui
+        image: varshithakj/full_stack_application_user-ui:latest
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+          runAsGroup: 1001
+        resources:
+            requests:
+              memory: "250Mi"
+              cpu: "1Gi"
+            limits:
+              memory: "500Mi"
+              cpu: "2Gi"
+        ports:
+        - containerPort: 3000
+          name: http
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 10
+          timeoutSeconds: 3
+          periodSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 10
+          timeoutSeconds: 3
+          periodSeconds: 3 
+        volumeMounts:
+          - name: user-ui-v1
+            mountPath: /app/.env
+            subPath: .env
+

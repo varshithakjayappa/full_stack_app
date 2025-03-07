@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-api
+  labels:
+    name: user-api
+  namespace: user
+spec:
+  selector:
+    matchLabels:
+      app: user-api
+  template:
+    metadata:
+      labels:
+        app: user-api
+        role: user
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: "role"
+                    operator: In
+                    values:
+                      - user
+      containers:
+        - name: user-api
+          image: varshithakj/full_stack_application_user-api:latest
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1001
+            runAsGroup: 1001
+          resources:
+            requests:
+              memory: "250Mi"
+              cpu: "1Gi"
+            limits:
+              memory: "500Mi"
+              cpu: "2Gi"
+          ports:
+            - containerPort: 1025
+              name: http
+          env:
+            - name: MONGO_URL
+              valueFrom:
+                secretKeyRef:
+                  name: user-api-secrets
+                  key: connectingstring
+            - name: PORT 
+              value: "1025"       
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 1025
+            initialDelaySeconds: 10
+            timeoutSeconds: 3
+            periodSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 1025
+            initialDelaySeconds: 10
+            timeoutSeconds: 3
+            periodSeconds: 3

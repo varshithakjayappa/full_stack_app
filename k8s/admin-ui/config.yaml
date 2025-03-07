@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: admin-ui-config
+  labels: 
+    app: admin-ui
+  namespace: admin  
+data:
+  .env: | 
+      REACT_APP_API_URL=http://admin-api:30001
